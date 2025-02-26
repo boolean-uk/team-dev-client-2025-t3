@@ -1,6 +1,7 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/dashboard';
+import CohortTeacher from './pages/cohortTeacher';
 import Login from './pages/login';
 import Register from './pages/register';
 import Loading from './pages/loading';
@@ -25,6 +26,15 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              index
+              path="cohort"
+              element={
+                <ProtectedRoute>
+                  <CohortTeacher />
                 </ProtectedRoute>
               }
             />
