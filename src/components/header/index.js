@@ -5,15 +5,25 @@ import Card from '../card';
 import ProfileIcon from '../../assets/icons/profileIcon';
 import CogIcon from '../../assets/icons/cogIcon';
 import LogoutIcon from '../../assets/icons/logoutIcon';
+import { UserContext } from '../../context/user';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 const Header = () => {
   const { token, onLogout } = useAuth();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const user = useContext(UserContext);
+
+  if (!user) {
+    return <p>Loading...</p>;
+  }
+
+  const name = `${user.firstName} ${user.lastName}`;
+  const userInitials = name.match(/\b(\w)/g);
 
   const onClickProfileIcon = () => {
     setIsMenuVisible(!isMenuVisible);
+    console.log(user);
   };
 
   if (!token) {
@@ -25,7 +35,7 @@ const Header = () => {
       <FullLogo textColour="white" />
 
       <div className="profile-icon" onClick={onClickProfileIcon}>
-        <p>AJ</p>
+        <p>{userInitials}</p>
       </div>
 
       {isMenuVisible && (
@@ -33,12 +43,14 @@ const Header = () => {
           <Card>
             <section className="post-details">
               <div className="profile-icon">
-                <p>AJ</p>
+                <p>{userInitials}</p>
               </div>
 
               <div className="post-user-name">
-                <p>Alex Jameson</p>
-                <small>Software Developer, Cohort 3</small>
+                <p>{`${user.firstName} ${user.lastName}`}</p>
+                <small>
+                  {user.specialism ?? 'Specialism'}, {user.cohort?.id ?? 'Cohort Id'}
+                </small>
               </div>
             </section>
 
