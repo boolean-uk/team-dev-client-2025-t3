@@ -13,6 +13,11 @@ async function createProfile(userId, firstName, lastName, githubUrl, bio) {
   return await patch(`users/${userId}`, { firstName, lastName, githubUrl, bio });
 }
 
+async function getUserDetails(userId) {
+  const res = await get(`users/${userId}`);
+  return res.data.user;
+}
+
 async function getPosts() {
   const res = await get('posts');
   return res.data.posts;
@@ -52,4 +57,4 @@ async function request(method, endpoint, data, auth = true) {
   return response.json();
 }
 
-export { login, getPosts, register, createProfile };
+export { login, getPosts, register, createProfile, getUserDetails };

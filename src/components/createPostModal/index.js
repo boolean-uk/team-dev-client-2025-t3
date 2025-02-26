@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import useModal from '../../hooks/useModal';
+import { UserContext } from '../../context/user'; // Import UserContext
 import './style.css';
 import Button from '../button';
 
 const CreatePostModal = () => {
   // Use the useModal hook to get the closeModal function so we can close the modal on user interaction
   const { closeModal } = useModal();
+  const user = useContext(UserContext); // Access user from UserContext
 
   const [message, setMessage] = useState(null);
   const [text, setText] = useState('');
@@ -20,17 +22,22 @@ const CreatePostModal = () => {
     setTimeout(() => {
       setMessage(null);
       closeModal();
+      console.log('Post submitted:', user);
     }, 2000);
   };
+
+  if (!user) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
       <section className="create-post-user-details">
         <div className="profile-icon">
-          <p>AJ</p>
+          <p>{user.profileIcon}</p>
         </div>
         <div className="post-user-name">
-          <p>Alex J</p>
+          <p>{`${user.firstName} ${user.lastName}`}</p>
         </div>
       </section>
 
