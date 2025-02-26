@@ -23,22 +23,22 @@ const App = () => {
               <Route path="loading" element={<Loading />} />
               <Route path="verification" element={<Verification />} />
 
-            <Route
-              index
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              index
-              path="cohort"
-              element={
-                <ProtectedRoute>
-                  <CohortTeacher />
-                </ProtectedRoute>
-              }
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                index
+                path="cohort"
+                element={
+                  <ProtectedRoute>
+                    <CohortTeacher />
+                  </ProtectedRoute>
+                }
               />
               <Route
                 path="welcome"
