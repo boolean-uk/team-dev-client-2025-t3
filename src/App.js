@@ -8,46 +8,49 @@ import Loading from './pages/loading';
 import Verification from './pages/verification';
 import { AuthProvider, ProtectedRoute } from './context/auth';
 import { ModalProvider } from './context/modal';
+import { UserProvider } from './context/user';
 import Welcome from './pages/welcome';
 
 const App = () => {
   return (
     <>
       <AuthProvider>
-        <ModalProvider>
-          <Routes>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="loading" element={<Loading />} />
-            <Route path="verification" element={<Verification />} />
+        <UserProvider>
+          <ModalProvider>
+            <Routes>
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+              <Route path="loading" element={<Loading />} />
+              <Route path="verification" element={<Verification />} />
 
-            <Route
-              index
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              index
-              path="cohort"
-              element={
-                <ProtectedRoute>
-                  <CohortTeacher />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="welcome"
-              element={
-                <ProtectedRoute disabledNav={true}>
-                  <Welcome />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </ModalProvider>
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                index
+                path="cohort"
+                element={
+                  <ProtectedRoute>
+                    <CohortTeacher />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="welcome"
+                element={
+                  <ProtectedRoute disabledNav={true}>
+                    <Welcome />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </ModalProvider>
+        </UserProvider>
       </AuthProvider>
     </>
   );
