@@ -1,14 +1,14 @@
 import { useState, useContext } from 'react';
 import useModal from '../../hooks/useModal';
 import ProfileCircle from '../profileCircle';
-import { UserContext } from '../../context/user'; // Import UserContext
+import { UserContext } from '../../context/user';
 import './style.css';
 import Button from '../button';
 
 const CreatePostModal = () => {
   // Use the useModal hook to get the closeModal function so we can close the modal on user interaction
   const { closeModal } = useModal();
-  const user = useContext(UserContext); // Access user from UserContext
+  const user = useContext(UserContext);
 
   const [message, setMessage] = useState(null);
   const [text, setText] = useState('');
