@@ -1,12 +1,15 @@
+import { useContext } from 'react';
 import useModal from '../../hooks/useModal';
 import Card from '../card';
 import Comment from '../comment';
 import EditPostModal from '../editPostModal';
 import ProfileCircle from '../profileCircle';
+import { UserContext } from '../../context/user';
 import './style.css';
 
-const Post = ({ postId, name, date, content, comments = [], likes = 0 }) => {
+const Post = ({ postId, authorId, name, date, content, comments = [], likes = 0 }) => {
   const { openModal, setModal } = useModal();
+  const user = useContext(UserContext);
 
   const userInitials = name.match(/\b(\w)/g);
 
@@ -26,9 +29,11 @@ const Post = ({ postId, name, date, content, comments = [], likes = 0 }) => {
             <small>{date}</small>
           </div>
 
-          <div className="edit-icon">
-            <p onClick={showModal}>...</p>
-          </div>
+          {user && user.id === authorId && (
+            <div className="edit-icon">
+              <p onClick={showModal}>...</p>
+            </div>
+          )}
         </section>
 
         <section className="post-content">
