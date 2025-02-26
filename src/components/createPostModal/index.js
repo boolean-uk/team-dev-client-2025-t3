@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import useModal from '../../hooks/useModal';
+import ProfileCircle from '../profileCircle';
 import { UserContext } from '../../context/user'; // Import UserContext
 import './style.css';
 import Button from '../button';
@@ -11,6 +12,9 @@ const CreatePostModal = () => {
 
   const [message, setMessage] = useState(null);
   const [text, setText] = useState('');
+
+  const name = `${user.firstName} ${user.lastName}`;
+  const userInitials = name.match(/\b(\w)/g);
 
   const onChange = (e) => {
     setText(e.target.value);
@@ -34,7 +38,7 @@ const CreatePostModal = () => {
     <>
       <section className="create-post-user-details">
         <div className="profile-icon">
-          <p>{user.profileIcon}</p>
+          <ProfileCircle initials={userInitials} />
         </div>
         <div className="post-user-name">
           <p>{`${user.firstName} ${user.lastName}`}</p>
