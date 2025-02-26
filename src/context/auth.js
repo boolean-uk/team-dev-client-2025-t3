@@ -34,8 +34,10 @@ const AuthProvider = ({ children }) => {
 
     localStorage.setItem('token', res.data.token);
 
-    setToken(res.token);
-    navigate(location.state?.from?.pathname || '/');
+    setToken(res.data.token);
+    console.log('token', token);
+    navigate('/');
+    console.log('location', location);
   };
 
   const handleLogout = () => {
