@@ -57,7 +57,7 @@ const EditPostModal = ({ postId }) => {
       <section className="create-post-actions">
         <Button
           onClick={onSubmit}
-          text="Post"
+          text="Update Post"
           classes={`${text.length ? 'blue' : 'offwhite'} width-full`}
           disabled={!text.length}
         />
