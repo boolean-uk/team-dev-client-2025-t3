@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import SearchIcon from '../../assets/icons/searchIcon';
 import Button from '../../components/button';
 import Card from '../../components/card';
@@ -6,10 +6,20 @@ import CreatePostModal from '../../components/createPostModal';
 import TextInput from '../../components/form/textInput';
 import Posts from '../../components/posts';
 import useModal from '../../hooks/useModal';
+import ProfileCircle from '../../components/profileCircle';
+import { UserContext } from '../../context/user';
 import './style.css';
 
 const Dashboard = () => {
   const [searchVal, setSearchVal] = useState('');
+  const user = useContext(UserContext);
+
+  if (!user) {
+    return <p>Loading...</p>;
+  }
+
+  const name = `${user.firstName} ${user.lastName}`;
+  const userInitials = name.match(/\b(\w)/g);
 
   const onChange = (e) => {
     setSearchVal(e.target.value);
@@ -33,7 +43,7 @@ const Dashboard = () => {
         <Card>
           <div className="create-post-input">
             <div className="profile-icon">
-              <p>AJ</p>
+              <ProfileCircle initials={userInitials} />
             </div>
             <Button text="What's on your mind?" onClick={showModal} />
           </div>
