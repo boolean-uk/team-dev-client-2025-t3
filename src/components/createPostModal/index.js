@@ -2,12 +2,15 @@ import { useState, useContext } from 'react';
 import useModal from '../../hooks/useModal';
 import ProfileCircle from '../profileCircle';
 import { UserContext } from '../../context/user';
+import { AuthContext } from '../../context/auth';
+import { post } from '../../service/apiClient';
 import './style.css';
 import Button from '../button';
 
 const CreatePostModal = () => {
   // Use the useModal hook to get the closeModal function so we can close the modal on user interaction
   const { closeModal } = useModal();
+  const auth = useContext(AuthContext);
   const user = useContext(UserContext);
 
   const [message, setMessage] = useState(null);
@@ -23,10 +26,13 @@ const CreatePostModal = () => {
   const onSubmit = () => {
     setMessage('Submit button was clicked! Closing modal in 2 seconds...');
 
+    post('posts', { text }, true, auth.token).then(() => {
+      setText('');
+    });
+
     setTimeout(() => {
       setMessage(null);
       closeModal();
-      console.log('Post submitted:', user);
     }, 2000);
   };
 
