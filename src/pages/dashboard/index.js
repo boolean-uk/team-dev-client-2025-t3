@@ -11,8 +11,10 @@ import { UserContext } from '../../context/user';
 import './style.css';
 
 const Dashboard = () => {
-  const [searchVal, setSearchVal] = useState('');
   const user = useContext(UserContext);
+  const [searchVal, setSearchVal] = useState('');
+
+  const { openModal, setModal } = useModal();
 
   if (!user) {
     return <p>Loading...</p>;
@@ -26,7 +28,6 @@ const Dashboard = () => {
   };
 
   // Use the useModal hook to get the openModal and setModal functions
-  const { openModal, setModal } = useModal();
 
   // Create a function to run on user interaction
   const showModal = () => {

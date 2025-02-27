@@ -14,21 +14,17 @@ const Header = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const user = useContext(UserContext);
 
-  if (!user) {
-    return <p>Loading...</p>;
+  if (!token) {
+    return null;
   }
 
-  const name = `${user.firstName} ${user.lastName}`;
-  const userInitials = name.match(/\b(\w)/g);
+  const name = user ? `${user.firstName} ${user.lastName}` : 'Guest';
+  const userInitials = user ? name.match(/\b(\w)/g) : ['G'];
 
   const onClickProfileIcon = () => {
     setIsMenuVisible(!isMenuVisible);
     console.log(user);
   };
-
-  if (!token) {
-    return null;
-  }
 
   return (
     <header>
@@ -47,32 +43,53 @@ const Header = () => {
               </div>
 
               <div className="post-user-name">
-                <p>{`${user.firstName} ${user.lastName}`}</p>
+                <p>{user ? `${user.firstName} ${user.lastName}` : 'Guest User'}</p>
                 <small>
-                  {user.specialism ?? 'Specialism'}, {user.cohort?.id ?? 'Cohort Id'}
+                  {user
+                    ? `${user.specialism ?? 'Specialism'}, ${user.cohort?.id ?? 'Cohort Id'}`
+                    : 'No details available'}
                 </small>
               </div>
             </section>
 
-            <section className="user-panel-options border-top">
-              <ul>
-                <li>
-                  <NavLink to="/">
-                    <ProfileIcon /> <p>Profile</p>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/">
-                    <CogIcon /> <p>Settings &amp; Privacy</p>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="#" onClick={onLogout}>
-                    <LogoutIcon /> <p>Log out</p>
-                  </NavLink>
-                </li>
-              </ul>
-            </section>
+            {!user && ( // If user is null, show login/register options
+              <section className="user-panel-options border-top">
+                <ul>
+                  <li>
+                    <NavLink to="/login">
+                      <ProfileIcon /> <p>Login</p>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/register">
+                      <CogIcon /> <p>Register</p>
+                    </NavLink>
+                  </li>
+                </ul>
+              </section>
+            )}
+
+            {user && ( // If user exists, show profile/settings/logout options
+              <section className="user-panel-options border-top">
+                <ul>
+                  <li>
+                    <NavLink to="/">
+                      <ProfileIcon /> <p>Profile</p>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/">
+                      <CogIcon /> <p>Settings &amp; Privacy</p>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="#" onClick={onLogout}>
+                      <LogoutIcon /> <p>Log out</p>
+                    </NavLink>
+                  </li>
+                </ul>
+              </section>
+            )}
           </Card>
         </div>
       )}
