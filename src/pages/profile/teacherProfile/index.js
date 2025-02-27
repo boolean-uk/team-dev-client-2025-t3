@@ -1,27 +1,25 @@
 /* eslint-disable prettier/prettier */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProfileIcon from '../../../assets/icons/profileIcon';
 import { FaEye, FaEyeSlash, FaLock } from 'react-icons/fa'; // run cmd: npm install react-icons
 import '../style.css';
-import profileData from '../data';
+import { useParams } from 'react-router-dom';
 
 const TeacherProfile = () => {
-  const [storedProfile, setStoredProfile] = useState(profileData);
-  const [profile, setProfile] = useState(storedProfile);
+  const [storedProfile, setStoredProfile] = useState();
+  const [profile, setProfile] = useState();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const { id } = useParams(); 
 
   const bioPlaceholder =
     'Tell us about yourself, your professional and educational highlights to date...';
 
-  /*
-  const { id } = useParams();
-  const url = `https(www.api.com/profile/${id}`;
-  useEffect(() => {
-    fetch(url)
-    .then(response => response.json())
-    .then(setProfile)
-}, []);
-*/
+    useEffect(() => {
+      fetch(`profileUrl/${id}`)
+        .then(response => response.json())
+        .then(setStoredProfile)
+        .then(setProfile)
+    }, []);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -34,7 +32,7 @@ const TeacherProfile = () => {
 
   const handleSubmit = (e) => {
     setStoredProfile(profile);
-    fetch(`putURL`, {
+    fetch(`putURL/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(profile)
@@ -89,7 +87,6 @@ const TeacherProfile = () => {
                     First Name*
                     <input
                       type="text"
-                      className="profile-inputs"
                       name="firstName"
                       value={profile.firstName}
                       onChange={handleChange}
@@ -101,7 +98,6 @@ const TeacherProfile = () => {
                     Last Name*
                     <input
                       type="text"
-                      className="profile-inputs"
                       name="lastName"
                       value={profile.lastName}
                       onChange={handleChange}
@@ -113,7 +109,6 @@ const TeacherProfile = () => {
                     Username*
                     <input
                       type="text"
-                      className="profile-inputs"
                       name="username"
                       value={profile.username}
                       onChange={handleChange}
@@ -125,7 +120,6 @@ const TeacherProfile = () => {
                     Github Username*
                     <input
                       type="text"
-                      className="profile-inputs"
                       name="githubUsername"
                       value={profile.githubUsername}
                       onChange={handleChange}
@@ -141,7 +135,6 @@ const TeacherProfile = () => {
                   Email*
                   <input
                     type="email"
-                    className="profile-inputs"
                     name="email"
                     value={profile.email}
                     onChange={handleChange}
@@ -151,7 +144,6 @@ const TeacherProfile = () => {
                   Mobile*
                   <input
                     type="tel"
-                    className="profile-inputs"
                     name="mobile"
                     value={profile.mobile}
                     onChange={handleChange}
@@ -162,7 +154,6 @@ const TeacherProfile = () => {
                   <div className="password-container">
                     <input
                       type={passwordVisible ? 'text' : 'password'}
-                      className="profile-inputs"
                       name="password"
                       value={profile.password}
                       onChange={handleChange}
@@ -190,7 +181,6 @@ const TeacherProfile = () => {
                     <div className="locked-input">
                       <input
                         type="text"
-                        className="profile-inputs"
                         name="role"
                         value={profile.role}
                         disabled
@@ -205,7 +195,6 @@ const TeacherProfile = () => {
                     <div className="locked-input">
                       <input
                         type="text"
-                        className="profile-inputs"
                         name="specialism"
                         value={profile.specialism}
                         disabled
@@ -220,7 +209,6 @@ const TeacherProfile = () => {
                     <div className="locked-input">
                       <input
                         type="text"
-                        className="profile-inputs"
                         name="cohort"
                         value={profile.jobTitle}
                         disabled

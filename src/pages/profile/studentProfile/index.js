@@ -1,27 +1,31 @@
 /* eslint-disable prettier/prettier */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProfileIcon from '../../../assets/icons/profileIcon';
 import { FaEye, FaEyeSlash, FaLock } from 'react-icons/fa'; // run cmd: npm install react-icons
 import '../style.css';
-import profileData from '../data';
+import { useParams } from 'react-router-dom';
 
 const StudentProfile = () => {
-  const [storedProfile, setStoredProfile] = useState(profileData);
-  const [profile, setProfile] = useState(storedProfile);
+  const [storedProfile, setStoredProfile] = useState();
+  const [profile, setProfile] = useState();
+  const [cohort, setCohort] = useState();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const { id } = useParams();
 
   const bioPlaceholder =
     'Tell us about yourself, your professional and educational highlights to date...';
 
-  /*
-  const { id } = useParams();
-  const url = `https(www.api.com/profile/${id}`;
   useEffect(() => {
-    fetch(url)
-    .then(response => response.json())
-    .then(setProfile)
-}, []);
-*/
+    fetch(`profileUrl/${id}`)
+      .then(response => response.json())
+      .then(setStoredProfile)
+      .then(setProfile)
+      .then(profile => {
+        return fetch(`cohortUrl/${profile.cohortId}`);  
+      })
+      .then(response => response.json())
+      .then(setCohort)
+  }, []);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -34,7 +38,7 @@ const StudentProfile = () => {
 
   const handleSubmit = (e) => {
     setStoredProfile(profile);
-    fetch(`putURL`, {
+    fetch(`putURL/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(profile)
@@ -89,7 +93,6 @@ const StudentProfile = () => {
                     First Name*
                     <input
                       type="text"
-                      className="profile-inputs"
                       name="firstName"
                       value={profile.firstName}
                       onChange={handleChange}
@@ -101,7 +104,6 @@ const StudentProfile = () => {
                     Last Name*
                     <input
                       type="text"
-                      className="profile-inputs"
                       name="lastName"
                       value={profile.lastName}
                       onChange={handleChange}
@@ -113,7 +115,6 @@ const StudentProfile = () => {
                     Username*
                     <input
                       type="text"
-                      className="profile-inputs"
                       name="username"
                       value={profile.username}
                       onChange={handleChange}
@@ -125,7 +126,6 @@ const StudentProfile = () => {
                     Github Username*
                     <input
                       type="text"
-                      className="profile-inputs"
                       name="githubUsername"
                       value={profile.githubUsername}
                       onChange={handleChange}
@@ -141,7 +141,6 @@ const StudentProfile = () => {
                   Email*
                   <input
                     type="email"
-                    className="profile-inputs"
                     name="email"
                     value={profile.email}
                     onChange={handleChange}
@@ -151,7 +150,6 @@ const StudentProfile = () => {
                   Mobile*
                   <input
                     type="tel"
-                    className="profile-inputs"
                     name="mobile"
                     value={profile.mobile}
                     onChange={handleChange}
@@ -162,7 +160,6 @@ const StudentProfile = () => {
                   <div className="password-container">
                     <input
                       type={passwordVisible ? 'text' : 'password'}
-                      className="profile-inputs"
                       name="password"
                       value={profile.password}
                       onChange={handleChange}
@@ -190,7 +187,6 @@ const StudentProfile = () => {
                     <div className="locked-input">
                       <input
                         type="text"
-                        className="profile-inputs"
                         name="role"
                         value={profile.role}
                         disabled
@@ -205,7 +201,6 @@ const StudentProfile = () => {
                     <div className="locked-input">
                       <input
                         type="text"
-                        className="profile-inputs"
                         name="specialism"
                         value={profile.specialism}
                         disabled
@@ -220,9 +215,8 @@ const StudentProfile = () => {
                     <div className="locked-input">
                       <input
                         type="text"
-                        className="profile-inputs"
                         name="cohort"
-                        value={profile.cohort}
+                        value={cohort.name}
                         disabled
                       />
                       <FaLock className="lock-icon" />
@@ -235,7 +229,6 @@ const StudentProfile = () => {
                     <div className="locked-input">
                       <input
                         type="date"
-                        className="profile-inputs"
                         name="startDate"
                         value={profile.startDate}
                         disabled
@@ -250,7 +243,6 @@ const StudentProfile = () => {
                     <div className="locked-input">
                       <input
                         type="date"
-                        className="profile-inputs"
                         name="endDate"
                         value={profile.endDate}
                         disabled
