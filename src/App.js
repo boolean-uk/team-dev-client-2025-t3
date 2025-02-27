@@ -37,7 +37,7 @@ const App = () => {
                 index
                 path="cohort"
                 element={
-                  <ProtectedRoute requiredRole="TEACHER">
+                  <ProtectedRoute>
                     <CohortTeacher />
                   </ProtectedRoute>
                 }
