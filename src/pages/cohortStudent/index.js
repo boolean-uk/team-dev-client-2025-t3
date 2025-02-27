@@ -25,7 +25,8 @@ const CohortStudent = () => {
 
   console.log(user);
   useEffect(() => {
-    if (user && user.cohort_id) {
+    if (user && user.cohortId) {
+      console.log(user.cohort_id);
       getCohort(user.cohort_id).then((data) => {
         setCohort(data);
         setLoading(false);
