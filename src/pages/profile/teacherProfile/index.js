@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash, FaLock } from 'react-icons/fa'; // run cmd: npm inst
 import '../style.css';
 import profileData from '../data';
 
-const StudentProfile = () => {
+const TeacherProfile = () => {
   const [storedProfile, setStoredProfile] = useState(profileData);
   const [profile, setProfile] = useState(storedProfile);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -59,7 +59,7 @@ const StudentProfile = () => {
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <h3>Profile</h3>
+        <h3>Profile Teacher</h3>
       </div>
       <div className="profile-content">
         <div className="profile-content-header">
@@ -182,7 +182,7 @@ const StudentProfile = () => {
           </div>
           <div className="profile-content-right">
             <div className="profile-content-training">
-              <h4 style={{ paddingLeft: "15px" }}>Training Info</h4>
+              <h4 style={{ paddingLeft: "15px" }}>Professional Info</h4>
               <form>
                 <div className="profil-content-row">
                   <label>
@@ -216,43 +216,13 @@ const StudentProfile = () => {
                 </div>
                 <div className="profil-content-row">
                   <label>
-                    Cohort*
+                    Job Title*
                     <div className="locked-input">
                       <input
                         type="text"
                         className="profile-inputs"
                         name="cohort"
-                        value={profile.cohort}
-                        disabled
-                      />
-                      <FaLock className="lock-icon" />
-                    </div>
-                  </label>
-                </div>
-                <div className="profil-content-row">
-                  <label>
-                    Start Date*
-                    <div className="locked-input">
-                      <input
-                        type="date"
-                        className="profile-inputs"
-                        name="startDate"
-                        value={profile.startDate}
-                        disabled
-                      />
-                      <FaLock className="lock-icon" />
-                    </div>
-                  </label>
-                </div>
-                <div className="profil-content-row">
-                  <label>
-                    End Date*
-                    <div className="locked-input">
-                      <input
-                        type="date"
-                        className="profile-inputs"
-                        name="endDate"
-                        value={profile.endDate}
+                        value={profile.jobTitle}
                         disabled
                       />
                       <FaLock className="lock-icon" />
@@ -300,4 +270,4 @@ const StudentProfile = () => {
   );
 };
 
-export default StudentProfile;
+export default TeacherProfile;
