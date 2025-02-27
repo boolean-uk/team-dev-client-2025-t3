@@ -6,7 +6,10 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    getPosts().then(setPosts);
+    getPosts().then((posts) => {
+      setPosts(posts);
+      console.log('Posts:', posts);
+    });
   }, []);
 
   return (
@@ -16,8 +19,8 @@ const Posts = () => {
           <Post
             key={post.id}
             postId={post.id}
-            authorId={post.author.id}
-            name={`${post.author.firstName} ${post.author.lastName}`}
+            authorId={post.user.id}
+            name={`${post.user.firstName} ${post.user.lastName}`}
             date={post.createdAt}
             content={post.content}
             comments={post.comments}

@@ -1,16 +1,65 @@
-const user = {
-  token: 'test-token',
-  user: {
+const users = [
+  {
+    token: 'test-token',
     id: 1,
     email: 'test@email.com',
     cohortId: 1,
     role: 'STUDENT',
     firstName: 'Joe',
     lastName: 'Bloggs',
+    specialism: 'Full Stack',
+    bio: 'Lorem ipsum dolor sit amet.',
+    githubUrl: 'https://github.com/vherus'
+  },
+  {
+    token: 'test-token',
+    id: 2,
+    email: 'test2@email.com',
+    cohortId: 1,
+    role: 'STUDENT',
+    firstName: 'John',
+    lastName: 'Doe',
+    specialism: 'Software Development',
+    bio: 'Lorem ipsum dolor sit amet.',
+    githubUrl: 'https://github.com/vherus'
+  },
+  {
+    token: 'test-token',
+    id: 3,
+    email: 'teacher1@test.com',
+    cohortId: 1,
+    role: 'TEACHER',
+    firstName: 'Jane',
+    lastName: 'Smith',
+    specialism: 'Cloud Computing',
+    bio: 'Lorem ipsum dolor sit amet.',
+    githubUrl: 'https://github.com/vherus'
+  },
+  {
+    token: 'test-token',
+    id: 4,
+    email: 'teacher2@test.com',
+    cohortId: 2,
+    role: 'TEACHER',
+    firstName: 'Rick',
+    lastName: 'Sanchez',
+    specialism: 'Full Stack',
+    bio: 'Lorem ipsum dolor sit amet.',
+    githubUrl: 'https://github.com/vherus'
+  },
+  {
+    token: 'test-token',
+    id: 5,
+    email: 'test2@email.com',
+    cohortId: 1,
+    role: 'STUDENT',
+    firstName: 'Steven',
+    lastName: 'Man',
+    specialism: 'Software Development',
     bio: 'Lorem ipsum dolor sit amet.',
     githubUrl: 'https://github.com/vherus'
   }
-};
+];
 
 const posts = [
   {
@@ -61,4 +110,4 @@ const posts = [
   }
 ];
 
-export { user, posts };
+export { users, posts };

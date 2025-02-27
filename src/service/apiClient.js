@@ -45,6 +45,7 @@ async function getUserDetails(userId) {
 
 async function getPosts() {
   const res = await get('posts');
+  console.log('Posts:', res.data.posts);
   return res.data.posts;
 }
 

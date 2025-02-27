@@ -5,10 +5,12 @@ import Card from '../../components/card';
 import CreatePostModal from '../../components/createPostModal';
 import TextInput from '../../components/form/textInput';
 import Posts from '../../components/posts';
+import DashboardStudent from '../../components/dashboardStudent';
 import useModal from '../../hooks/useModal';
 import ProfileCircle from '../../components/profileCircle';
 import { UserContext } from '../../context/user';
 import './style.css';
+import { users } from '../../service/mockData';
 
 const Dashboard = () => {
   const user = useContext(UserContext);
@@ -27,14 +29,15 @@ const Dashboard = () => {
     setSearchVal(e.target.value);
   };
 
-  // Use the useModal hook to get the openModal and setModal functions
+  // Separate users based on their role and cohortId
+  const students = users.filter((user) => user.role === 'STUDENT');
+  const teachers = users.filter((user) => user.role === 'TEACHER');
+  const myCohortStudents = students.filter((student) => student.cohortId === user.cohort_id);
 
+  console.log('Students:', user);
   // Create a function to run on user interaction
   const showModal = () => {
-    // Use setModal to set the header of the modal and the component the modal should render
-    setModal('Create a post', <CreatePostModal />); // CreatePostModal is just a standard React component, nothing special
-
-    // Open the modal!
+    setModal('Create a post', <CreatePostModal />);
     openModal();
   };
 
@@ -64,6 +67,13 @@ const Dashboard = () => {
           <>
             <Card>
               <h4>My Cohort</h4>
+              {myCohortStudents.map((student) => (
+                <DashboardStudent
+                  key={student.id}
+                  name={`${student.firstName} ${student.lastName}`}
+                  specialism={student.specialism}
+                />
+              ))}
             </Card>
           </>
         )}
@@ -75,9 +85,23 @@ const Dashboard = () => {
             </Card>
             <Card>
               <h4>Students</h4>
+              {students.map((student) => (
+                <DashboardStudent
+                  key={student.id}
+                  name={`${student.firstName} ${student.lastName}`}
+                  specialism={student.specialism}
+                />
+              ))}
             </Card>
             <Card>
               <h4>Teachers</h4>
+              {teachers.map((teacher) => (
+                <DashboardStudent
+                  key={teacher.id}
+                  name={`${teacher.firstName} ${teacher.lastName}`}
+                  specialism={teacher.specialism}
+                />
+              ))}
             </Card>
           </>
         )}
