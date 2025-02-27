@@ -1,7 +1,7 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/dashboard';
-import CohortTeacher from './pages/cohortTeacher';
+import CohortStudent from './pages/cohortStudent';
 import Login from './pages/login';
 import Register from './pages/register';
 import Loading from './pages/loading';
@@ -36,7 +36,7 @@ const App = () => {
                 path="cohort"
                 element={
                   <ProtectedRoute>
-                    <CohortTeacher />
+                    <CohortStudent />
                   </ProtectedRoute>
                 }
               />

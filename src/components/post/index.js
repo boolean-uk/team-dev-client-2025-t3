@@ -11,6 +11,10 @@ const Post = ({ postId, authorId, name, date, content, comments = [], likes = 0 
   const { openModal, setModal } = useModal();
   const user = useContext(UserContext);
 
+  console.log(user);
+  console.log(authorId);
+  console.log(name);
+
   const userInitials = name.match(/\b(\w)/g);
 
   const showModal = () => {
