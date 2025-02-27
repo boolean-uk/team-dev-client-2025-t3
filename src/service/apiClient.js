@@ -40,7 +40,8 @@ async function createProfile(
 
 async function getUserDetails(userId) {
   const res = await get(`users/${userId}`);
-  return res.data.user;
+  console.log('User Details:', res.data);
+  return res.data;
 }
 
 async function getPosts() {
@@ -52,6 +53,11 @@ async function getPosts() {
 async function getCohorts() {
   const res = await get('cohorts');
   return res.data.cohorts;
+}
+
+async function getCohort(cohortId) {
+  const res = await get(`cohorts/${cohortId}`);
+  return res.data.cohort;
 }
 
 async function post(endpoint, data, auth = true) {
@@ -88,4 +94,14 @@ async function request(method, endpoint, data, auth = true) {
   return response.json();
 }
 
-export { login, getPosts, register, createProfile, getUserDetails, post, patch, getCohorts };
+export {
+  login,
+  getPosts,
+  register,
+  createProfile,
+  getUserDetails,
+  post,
+  patch,
+  getCohorts,
+  getCohort
+};
