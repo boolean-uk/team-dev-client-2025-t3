@@ -1,15 +1,17 @@
 import './App.css';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/dashboard';
 import CohortStudent from './pages/cohortStudent';
 import Login from './pages/login';
 import Register from './pages/register';
 import Loading from './pages/loading';
+import Notes from './pages/notes';
+import Welcome from './pages/welcome';
 import Verification from './pages/verification';
 import { AuthProvider, ProtectedRoute } from './context/auth';
 import { ModalProvider } from './context/modal';
 import { UserProvider } from './context/user';
-import Welcome from './pages/welcome';
 
 const App = () => {
   return (
@@ -37,6 +39,15 @@ const App = () => {
                 element={
                   <ProtectedRoute>
                     <CohortStudent />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                index
+                path="notes"
+                element={
+                  <ProtectedRoute requiredRole="TEACHER">
+                    <Notes />
                   </ProtectedRoute>
                 }
               />
