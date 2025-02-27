@@ -15,6 +15,7 @@ import { users } from '../../service/mockData';
 const Dashboard = () => {
   const user = useContext(UserContext);
   const [searchVal, setSearchVal] = useState('');
+  console.log('Usersindash:', user);
 
   const { openModal, setModal } = useModal();
 
@@ -32,7 +33,7 @@ const Dashboard = () => {
   // Separate users based on their role and cohortId
   const students = users.filter((user) => user.role === 'STUDENT');
   const teachers = users.filter((user) => user.role === 'TEACHER');
-  const myCohortStudents = students.filter((student) => student.cohortId === user.cohort_id);
+  const myCohortStudents = students.filter((student) => student.cohortId === user.cohortId);
 
   console.log('Students:', user);
   // Create a function to run on user interaction

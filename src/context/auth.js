@@ -29,6 +29,7 @@ const AuthProvider = ({ children }) => {
 
   const handleLogin = async (email, password) => {
     const res = await login(email, password);
+    console.log('res', res);
 
     if (!res.data.token) {
       return navigate('/login');
@@ -38,7 +39,9 @@ const AuthProvider = ({ children }) => {
 
     setToken(res.data.token);
     const decodedUser = jwt_decode(res.data.token);
+    console.log('decodedUser', decodedUser);
     setUser(decodedUser);
+    console.log('userloggedib', user);
     navigate('/');
   };
 

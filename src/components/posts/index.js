@@ -7,7 +7,8 @@ const Posts = () => {
 
   useEffect(() => {
     getPosts().then((posts) => {
-      setPosts(posts);
+      const sortedPosts = posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setPosts(sortedPosts);
       console.log('Posts:', posts);
     });
   }, []);

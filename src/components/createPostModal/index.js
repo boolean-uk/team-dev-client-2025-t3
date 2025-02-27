@@ -26,7 +26,7 @@ const CreatePostModal = () => {
   const onSubmit = () => {
     setMessage('Submit button was clicked! Closing modal in 2 seconds...');
 
-    post('posts', { text }, true, auth.token).then(() => {
+    post('posts', { content: text, userId: user.id }, true, auth.token).then(() => {
       setText('');
     });
 
