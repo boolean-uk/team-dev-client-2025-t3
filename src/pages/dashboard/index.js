@@ -60,9 +60,27 @@ const Dashboard = () => {
           </form>
         </Card>
 
-        <Card>
-          <h4>My Cohort</h4>
-        </Card>
+        {user.role === 'STUDENT' && (
+          <>
+            <Card>
+              <h4>My Cohort</h4>
+            </Card>
+          </>
+        )}
+
+        {user.role === 'TEACHER' && (
+          <>
+            <Card>
+              <h4>Cohort</h4>
+            </Card>
+            <Card>
+              <h4>Students</h4>
+            </Card>
+            <Card>
+              <h4>Teachers</h4>
+            </Card>
+          </>
+        )}
       </aside>
     </>
   );
