@@ -40,7 +40,7 @@ async function createProfile(
 
 async function getUserDetails(userId) {
   const res = await get(`users/${userId}`);
-  return res.data.user;
+  return res.data;
 }
 
 async function getPosts() {
