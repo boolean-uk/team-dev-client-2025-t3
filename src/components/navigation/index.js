@@ -28,7 +28,7 @@ const Navigation = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/">
+          <NavLink to={`/profile`}>
             <ProfileIcon />
             <p>Profile</p>
           </NavLink>
@@ -40,7 +40,7 @@ const Navigation = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/exercises">
+          <NavLink to="/">
             <FileIcon />
             <p>Exercises</p>
           </NavLink>
