@@ -7,13 +7,12 @@ import { post } from '../../service/apiClient';
 import './style.css';
 import Button from '../button';
 
-const CreatePostModal = () => {
+const CreatePostModal = ({ onPostCreate }) => {
   // Use the useModal hook to get the closeModal function so we can close the modal on user interaction
   const { closeModal } = useModal();
   const auth = useContext(AuthContext);
   const user = useContext(UserContext);
 
-  const [message, setMessage] = useState(null);
   const [text, setText] = useState('');
 
   const name = `${user.firstName} ${user.lastName}`;
@@ -23,17 +22,12 @@ const CreatePostModal = () => {
     setText(e.target.value);
   };
 
-  const onSubmit = () => {
-    setMessage('Submit button was clicked! Closing modal in 2 seconds...');
+  const onSubmit = async () => {
+    await post('posts', { content: text, userId: user.id }, true, auth.token);
+    setText('');
 
-    post('posts', { text }, true, auth.token).then(() => {
-      setText('');
-    });
-
-    setTimeout(() => {
-      setMessage(null);
-      closeModal();
-    }, 2000);
+    onPostCreate();
+    closeModal();
   };
 
   if (!user) {
@@ -63,8 +57,6 @@ const CreatePostModal = () => {
           disabled={!text.length}
         />
       </section>
-
-      {message && <p>{message}</p>}
     </>
   );
 };
