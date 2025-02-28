@@ -1,27 +1,37 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import useModal from '../../hooks/useModal';
 import Card from '../card';
 import Comment from '../comment';
 import EditPostModal from '../editPostModal';
 import ProfileCircle from '../profileCircle';
 import { UserContext } from '../../context/user';
+import { AuthContext } from '../../context/auth';
 import './style.css';
 import HeartIcon from '../../assets/icons/heartIcon';
 import CommentIcon from '../../assets/icons/commentIcon';
+import { post } from '../../service/apiClient';
 
 const Post = ({ postId, authorId, name, date, content, comments = [], likes = 0 }) => {
   const { openModal, setModal } = useModal();
   const user = useContext(UserContext);
+  const auth = useContext(AuthContext);
+  const [commentText, setCommentText] = useState('');
 
-  console.log(user);
-  console.log(authorId);
-  console.log(name);
+  console.log('posts', postId, authorId, name, date, content, comments, likes);
 
   const userInitials = name.match(/\b(\w)/g);
 
   const showModal = () => {
     setModal('Edit post', <EditPostModal postId={postId} />);
     openModal();
+  };
+
+  const handleCommentChange = (e) => {
+    setCommentText(e.target.value);
+  };
+
+  const onSubmit = async () => {
+    await post('comments', { content: commentText, postId }, true, auth.token);
   };
 
   return (
@@ -65,13 +75,23 @@ const Post = ({ postId, authorId, name, date, content, comments = [], likes = 0 
 
         <section>
           {comments.map((comment) => (
-            <Comment key={comment.id} name={comment.name} content={comment.content} />
+            <Comment
+              key={comment.id}
+              name={comment.author.profile.firstName}
+              content={comment.content}
+            />
           ))}
         </section>
 
         <section>
-          <form>
-            <input type="text" placeholder="Write a comment..." />
+          <form onSubmit={onSubmit}>
+            <input
+              type="text"
+              placeholder="Write a comment..."
+              value={commentText}
+              onChange={handleCommentChange}
+            />
+            <button type="submit">Post</button>
           </form>
         </section>
       </article>
