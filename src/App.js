@@ -12,6 +12,7 @@ import Verification from './pages/verification';
 import { AuthProvider, ProtectedRoute } from './context/auth';
 import { ModalProvider } from './context/modal';
 import { UserProvider } from './context/user';
+import StudentProfile from './pages/profile/studentProfile';
 
 const App = () => {
   return (
@@ -39,6 +40,15 @@ const App = () => {
                 element={
                   <ProtectedRoute>
                     <CohortTeacher />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                index
+                path="profile"
+                element={
+                  <ProtectedRoute>
+                    <StudentProfile />
                   </ProtectedRoute>
                 }
               />
