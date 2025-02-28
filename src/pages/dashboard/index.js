@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import SearchIcon from '../../assets/icons/searchIcon';
 import Button from '../../components/button';
 import Card from '../../components/card';
@@ -11,11 +11,27 @@ import ProfileCircle from '../../components/profileCircle';
 import { UserContext } from '../../context/user';
 import './style.css';
 import { users } from '../../service/mockData';
+import { getPosts } from '../../service/apiClient';
 
 const Dashboard = () => {
   const user = useContext(UserContext);
   const [searchVal, setSearchVal] = useState('');
   console.log('Usersindash:', user);
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    updatePosts();
+  }, []);
+
+  const updatePosts = () => {
+    getPosts().then((posts) => {
+      const sortedPosts = posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setPosts(sortedPosts);
+      console.log('Posts:', posts);
+      console.log('hello');
+    });
+  };
 
   const { openModal, setModal } = useModal();
 
@@ -38,7 +54,14 @@ const Dashboard = () => {
   console.log('Students:', user);
   // Create a function to run on user interaction
   const showModal = () => {
-    setModal('Create a post', <CreatePostModal />);
+    setModal(
+      'Create a post',
+      <CreatePostModal
+        onPostCreate={() => {
+          updatePosts();
+        }}
+      />
+    );
     openModal();
   };
 
@@ -54,7 +77,7 @@ const Dashboard = () => {
           </div>
         </Card>
 
-        <Posts />
+        <Posts posts={posts} />
       </main>
 
       <aside>
