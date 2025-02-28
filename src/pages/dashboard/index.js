@@ -28,8 +28,6 @@ const Dashboard = () => {
     getPosts().then((posts) => {
       const sortedPosts = posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setPosts(sortedPosts);
-      console.log('Posts:', posts);
-      console.log('hello');
     });
   };
 

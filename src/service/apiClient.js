@@ -59,6 +59,10 @@ async function getCohort(cohortId) {
   return res.data.cohort;
 }
 
+async function createComment(postId, data) {
+  return await post(`posts/${postId}/comments`, data);
+}
+
 async function post(endpoint, data, auth = true) {
   return await request('POST', endpoint, data, auth);
 }
@@ -98,6 +102,7 @@ export {
   getPosts,
   register,
   createProfile,
+  createComment,
   getUserDetails,
   post,
   patch,
